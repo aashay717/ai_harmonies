@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emotion Detection</title>
+  <script src="face-api.js"></script>
+</head>
+<body>
+  <video id="video" width="640" height="480" autoplay></video>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <p id="output"></p>
+
+  <script>
+    let pageOpened = false;
+
+    async function setupCamera() {
+      const video = document.getElementById('video');
+      const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+      video.srcObject = stream;
+      await video.play();
+    }
+
+    async function detectEmotion() {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+
+      const faceDetectionOptions = new faceapi.TinyFaceDetectorOptions({ inputSize: 512 });
+      await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+      await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+      await faceapi.nets.faceExpressionNet.loadFromUri('/models');
+
+      setInterval(async () => {
+        const detections = await faceapi.detectAllFaces(video, faceDetectionOptions)
+                                         .withFaceLandmarks()
+                                         .withFaceExpressions();
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        detections.forEach(detection => {
+          const { expressions } = detection;
+          let emotionLabel = Object.keys(expressions).reduce((a, b) => expressions[a] > expressions[b] ? a : b);
+          document.getElementById('output').innerText = `Detected emotion: ${emotionLabel}`;
+
+          // Open URL based on emotion if a page has not been opened yet
+          if (!pageOpened) {
+            switch (emotionLabel) {
+              case 'neutral':
+                window.open('neutral.html', '_blank');
+                pageOpened = true;
+                break;
+              case 'happy':
+                window.open('happy2.html', '_blank');
+                pageOpened = true;
+                break;
+              case 'sad':
+                window.open('sad.html', '_blank');
+                pageOpened = true;
+                break;
+              case 'angry':
+                window.open('angry.html', '_blank');
+                pageOpened = true;
+                break;
+              default:
+                break;
+            }
+          }
+        });
+      }, 100);
+    }
+
+    window.addEventListener('beforeunload', function() {
+      // Reset pageOpened flag when navigating away from the page
+      pageOpened = false;
+    });
+
+    setupCamera().then(detectEmotion);
+  </script>
+</body>
+</html>

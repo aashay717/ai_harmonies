@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" type="text/css" href="../public/styles.css" />
+</head>
+<body>s
+    <div class="container">
+        <div class="checkout-text">
+            <div class="name-div">
+                <label for="nameInput">Name</label>
+                <input type="text" id="nameInput" plsaceholder="Name" />
+            </div>
+            <div class="subscription-div">
+                <label for="subscription">Subscription:</label><br>
+                <select id="subscription" onchange="updateAmount()">
+                    <option value="">Select ---</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="annual">Annualy</option>
+                </select>
+            </div>
+            <div class="Amount-div">
+                <label for="Amount">Amount:</label><br>
+                <input type="text" id="Amount" placeholder="Amount" readonly>
+            </div>
+            <button class="buy-button">Pay</button>
+        </div>
+    </div>
+    
+    <script src="../public/script.js"></script>
+</body>
+</html>

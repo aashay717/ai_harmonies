@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --Black: #000000;
+  --Dark: #262626;
+  --White: #ffffff;
+  --Gold: #FED700;
+  --Gray: gray;
+  --Gray2: #eeeeee;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.checkout-text {
+  width: 350px;
+  padding: 30px;
+  background-color: var(--White);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.name-div,
+.subscription-div,
+.Amount-div {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+button.buy-button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--Gold);
+  border: 2px solid var(--Gold);
+  color: var(--Dark);
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+button.buy-button:hover {
+  background-color: #e6b200;
+}
+
+.container {
+  background-image: url('music_background2.jpeg'); 
+  background-size: cover;
+  background-position: center;
+}
