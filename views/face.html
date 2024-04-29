@@ -9,6 +9,21 @@
   <canvas id="canvas" width="640" height="480"></canvas>
   <p id="output"></p>
 
+  <!-- Your modal HTML -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dynamic Content</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalContent">
+          <!-- Content loaded dynamically will appear here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     let pageOpened = false;
 
@@ -46,19 +61,19 @@
           if (!pageOpened) {
             switch (emotionLabel) {
               case 'neutral':
-                window.open('neutral.html', '_blank');
+                loadContent('neutral.html');
                 pageOpened = true;
                 break;
               case 'happy':
-                window.open('happy2.html', '_blank');
+                loadContent('happy2.html');
                 pageOpened = true;
                 break;
               case 'sad':
-                window.open('sad.html', '_blank');
+                loadContent('sad.html');
                 pageOpened = true;
                 break;
               case 'angry':
-                window.open('angry.html', '_blank');
+                loadContent('angry.html');
                 pageOpened = true;
                 break;
               default:
@@ -73,6 +88,17 @@
       // Reset pageOpened flag when navigating away from the page
       pageOpened = false;
     });
+
+    // Function to load content using AJAX
+    function loadContent(pageUrl) {
+        $.get(pageUrl, function(data) {
+            // Display fetched content in a modal
+            $('#modalContent').html(data);
+            $('#exampleModal').modal('show');
+        }).fail(function() {
+            console.log('Error loading page.');
+        });
+    }
 
     setupCamera().then(detectEmotion);
   </script>
