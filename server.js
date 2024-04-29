@@ -24,12 +24,9 @@ const User = mongoose.model('User', new mongoose.Schema({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); // Add this line
+app.use(bodyParser.json());
 
 // Routes
-
-
-
 app.get('/signup_success', (req, res) => {
     res.render('signup_success');
 });
@@ -66,20 +63,23 @@ app.post('/login', async (req, res) => {
         if (!validPassword) {
             return res.send('Invalid email or password.');
         }
-        res.redirect(`/?username=${user.username}`);
+        // Redirect to main page with username as a query parameter
+        res.redirect(`/?username=${encodeURIComponent(user.username)}`);
         console.log("User has logged in!!");
     } catch (error) {
         res.send('Error logging in.');
     }
 });
+
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
+
 app.get('/', (req, res) => {
-    const username = req.query.username || ''; // Get username from query parameter or set default value
+    // Get username from query parameter or set default value
+    const username = req.query.username || ''; 
     res.render('index', { username });
 });
-
 
 // Start the server
 app.listen(port, () => {
