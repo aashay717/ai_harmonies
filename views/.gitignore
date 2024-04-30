@@ -1,0 +1,10 @@
+# Dependency directories
+node_modules/
+npm-debug.log
+
+# Environment variables file
+.env
+
+# Build files
+/build
+.DS_Store
