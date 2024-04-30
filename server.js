@@ -1,3 +1,5 @@
+require('dotenv').config(); 
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -5,9 +7,9 @@ const path = require('path');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-const port = 7300;
+const port = 3000;
 
-const uri = "mongodb+srv://12212170:0oHipYf8Pl5lgaEz@cluster0.w5fxh6q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://12212170:0oHipYf8Pl5lgaEz@cluster0.w5fxh6q.mongodb.net/newest?retryWrites=true&w=majority&appName=Cluster0";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function connectToMongoDB() {
@@ -86,7 +88,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at mongodb+srv://12212170:0oHipYf8Pl5lgaEz@cluster0.w5fxh6q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0${port}`);
 });
 
 async function closeMongoDBConnection() {
