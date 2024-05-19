@@ -486,7 +486,6 @@ const repeat_music = () => {
     el.target.classList.add('bi-pause-fill');
     el.target.classList.remove('bi-play-fill');
     wave.classList.add('active1');
-
 }
 const random_music = () => {
     if (index == songs.length) {
